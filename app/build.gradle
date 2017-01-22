@@ -6,8 +6,9 @@ android {
 
     defaultConfig {
         applicationId "com.example.vishal.monitor"
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion 23
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
     }
@@ -17,12 +18,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
     compile fileTree(include: ['*.jar', '*.so'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
-    compile project(':armeabi-v7a')
     compile 'commons-io:commons-io:2.5'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-math3
+    compile group: 'org.apache.commons', name: 'commons-math3', version: '3.4.1'
+    compile 'com.google.android.gms:play-services:10.0.1'
+
 }

@@ -1,15 +1,22 @@
 package com.example.vishal.monitor;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.vishal.monitor.lp_doctor.ui.AppListActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -19,6 +26,7 @@ public class MainActivity extends AppCompatActivity
     String shell;
     TextView banner;
     TextView txtStatus;
+    Button btnSettings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,9 +35,23 @@ public class MainActivity extends AppCompatActivity
         copyResources();
         banner = (TextView) findViewById(R.id.txtBanner);
         txtStatus = (TextView) findViewById(R.id.txtStatus);
+        btnSettings = (Button) findViewById(R.id.btnSettings);
+        btnSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startLocActivity();
+            }
+        });
         //banner.setText("Hey !");
+
     }
 
+    private void startLocActivity() {
+        Intent intent = new Intent(this, AppListActivity.class);
+        String message = "Get Location from GMS";
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
     private String copyResources()
     {
         String status="error";
@@ -55,11 +77,11 @@ public class MainActivity extends AppCompatActivity
             RunExec.runCmd("busybox rm -f "+filesDir+"/apktools.tar");
         }
 
-        RunExec.runCmd("ls -l /system/bin/");
+        //RunExec.runCmd("ls -l /system/bin/");
         //RunExec.runCmd("ls -l /system/framework/");
         //RunExec.runCmd("ls -l /data/system-framework/");
-        RunExec.runCmd("ls -l /data/data/com.example.vishal.monitor/files/");
-        RunExec.runCmd("ls -l /data/data/com.example.vishal.monitor/files/apktool/");
+        //RunExec.runCmd("ls -l /data/data/com.example.vishal.monitor/files/");
+        //RunExec.runCmd("ls -l /data/data/com.example.vishal.monitor/files/apktool/");
 
         /****** Rest commands are run from Operator class eg decompile, compile*****/
         //RunExec.runCmd("sh "+filesDir+"/apktool/apktool.sh d -f /sdcard/download/cme.apk  /sdcard/download/cme_src2");
