@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity
     String shell;
     TextView banner;
     TextView txtStatus;
-    Button btnSettings;
+
     Button btnAlertPrefs;
     Button btnConnect;
     Context context;
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity
         copyResources();
         banner = (TextView) findViewById(R.id.txtBanner);
         txtStatus = (TextView) findViewById(R.id.txtStatus);
-        btnSettings = (Button) findViewById(R.id.btnSettings);
+
         btnAlertPrefs = (Button) findViewById(R.id.btnAlertPrefs);
         btnConnect = (Button) findViewById(R.id.btnConnect);
         //initialize locationAcquisitionHelper here, its constructor does the rest of the work
@@ -104,8 +104,7 @@ public class MainActivity extends AppCompatActivity
     {
         Log.d(TAG, "onActivityResult: "+result);
         if (result == RESULT_OK) {
-            Intent intent = new Intent(this, VpnHandler.class);
-            startService(intent);
+
         }
         else if (result == PrivacyGuard_Installed) {
             startPrivacyGuard();

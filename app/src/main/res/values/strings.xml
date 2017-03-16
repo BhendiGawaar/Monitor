@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">Monitor 1.3</string>
+    <string name="app_name">Monitor</string>
+    <string name="app_name_version">Monitor 1.4</string>
     <string name="title_activity_app_list">Apps</string>
     <string name="main_switch">Apps</string>
     <string name="fore_title">Privacy options</string>
