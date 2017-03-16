@@ -1,1 +1,1 @@
-include ':app', ':armeabi-v7a'
+include ':app'

@@ -37,4 +37,43 @@
         android:layout_marginBottom="78dp"
         android:id="@+id/btnSettings"
         android:elevation="0dp" />
+
+    <Button
+        android:text="Set Location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="26dp"
+        android:id="@+id/btnSetLoc"
+        android:onClick="setLoc"
+        />
+
+    <Button
+        android:text="Remove Location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnRemoveLoc"
+        android:onClick="removeLoc"
+        android:layout_alignBaseline="@+id/btnSetLoc"
+        android:layout_alignParentEnd="true"
+        android:layout_alignRight="@id/btnSetLoc"
+        />
+
+    <Button
+        android:text="Alert Preferences"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnAlertPrefs"
+        android:layout_below="@+id/txtStatus"
+        android:layout_centerHorizontal="true"
+         />
+
+    <Button
+        android:text="Monitor Network"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtBanner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp"
+        android:id="@+id/btnConnect" />
 </RelativeLayout>

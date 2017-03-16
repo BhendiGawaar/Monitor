@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Monitor.iml" filepath="$PROJECT_DIR$/Monitor.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/armeabi-v7a/armeabi-v7a.iml" filepath="$PROJECT_DIR$/armeabi-v7a/armeabi-v7a.iml" />
     </modules>
   </component>
 </project>

@@ -1,2 +1,0 @@
-configurations.maybeCreate("default")
-artifacts.add("default", file('armeabi-v7a.jar'))

@@ -83,6 +83,8 @@ public class Injector {
 
                       for(File file : fileCollection)
                             {
+                                if(file.getAbsolutePath().contains("google")||file.getAbsolutePath().contains("android"))
+                                    continue;
                                 changeFlag = false;
                                 Log.d(TAG, "injectClasses: "+"scanning -- "+file);
                                 //System.out.println("scanning -- "+file);

@@ -2,22 +2,27 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.vishal.monitor">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+
     <application
-        android:name=".lp_doctor.App"
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <receiver android:name="Receiver">
+        <receiver android:name=".Receiver">
             <intent-filter>
-                <action android:name="com.vishal.reporter"></action>
+                <action android:name="com.vishal.reporter" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED"/>
-                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
-                <data android:scheme="package"/>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
             </intent-filter>
         </receiver>
 
@@ -29,18 +34,16 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".lp_doctor.ui.AppListActivity"
-            android:label="@string/title_activity_app_list"
-            android:screenOrientation="portrait"></activity>
-
-        <activity
-            android:name=".lp_doctor.ui.GlobalSettingsActivity"
-            android:label="@string/fore_title"
-            android:windowSoftInputMode="adjustPan|adjustResize"></activity>
-
         <uses-library android:name="com.google.android.maps" />
+
+        <activity android:name=".AlertPrefsActivity"></activity>
+
+        <service android:name=".VpnHandler"
+            android:permission="android.permission.BIND_VPN_SERVICE">
+            <intent-filter>
+                <action android:name="android.net.VpnService"/>
+            </intent-filter>
+        </service>
     </application>
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 </manifest>

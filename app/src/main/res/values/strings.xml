@@ -6,5 +6,8 @@
     <string name="allow">Allow</string>
     <string name="protect">Protect</string>
     <string name="block">Block</string>
-    <string name="protection_level">Protection level</string>
+    <string name="protection_level">Tracking Potection</string>
+    <string name="connecting">OrbotVPN is connecting...</string>
+    <string name="connected">OrbotVPN is connected!</string>
+    <string name="disconnected">OrbotVPN is disconnected!</string>
 </resources>

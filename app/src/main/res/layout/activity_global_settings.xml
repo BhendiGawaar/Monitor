@@ -101,7 +101,7 @@
                         android:layout_below="@+id/block"
                         android:text="Fixed Location" /> -->
                 </RadioGroup>
-<!--
+
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
@@ -117,16 +117,16 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_below="@+id/textView3"
-                    android:max="3" /> -->
+                    android:max="3" />
 
                 <TextView
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_below="@+id/radioGroup1"
+                    android:layout_below="@+id/proflevel"
                     android:layout_marginTop="16dp"
-                    android:text="@string/protection_level" />
+                    android:text="Tracking Potection: " />
 
                 <SeekBar
                     android:id="@+id/tracklevel"
@@ -135,6 +135,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_below="@+id/textView4"
                     android:max="3" />
+
 
 <!--                <EditText
                     android:id="@+id/lat_global"
@@ -161,13 +162,13 @@
                     android:layout_alignTop="@+id/textView4"
                     android:layout_toRightOf="@+id/textView1" />
 
-<!--                <TextView
+                <TextView
                     android:id="@+id/profileLevelDisplay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/textView3"
                     android:layout_alignBottom="@+id/textView3"
-                    android:layout_toRightOf="@+id/textView3" /> -->
+                    android:layout_toRightOf="@+id/textView3" />
 
             </RelativeLayout>
 
