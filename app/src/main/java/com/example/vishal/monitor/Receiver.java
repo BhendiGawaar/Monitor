@@ -29,9 +29,10 @@ public class Receiver extends BroadcastReceiver {
         if(intent.getAction().equals("com.vishal.reporter"))
         {
             String packName = intent.getStringExtra("who");
+            String appName = AlertPrefsActivity.getAppName(packName,context);
             Log.d(TAG, "onReceive2: "+intent.getAction());
             if(alertPrefs.getBoolean("switchGlobal",true) && alertPrefs.getBoolean(packName,true))
-                Toast.makeText(context, "Location accessed by " + intent.getStringExtra("who") + " on " + intent.getStringExtra("date") + " at " + intent.getStringExtra("time"), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Location accessed by " + appName + " on " + intent.getStringExtra("date") + " at " + intent.getStringExtra("time"), Toast.LENGTH_LONG).show();
         }
        else if(intent.getAction().equalsIgnoreCase("android.intent.action.PACKAGE_ADDED"))
         {

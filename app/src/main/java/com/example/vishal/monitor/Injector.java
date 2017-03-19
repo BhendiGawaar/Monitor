@@ -22,8 +22,6 @@ import java.util.ListIterator;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import static android.content.ContentValues.TAG;
-
 /**
  * Created by vishal on 3/1/17.
  */
@@ -37,7 +35,7 @@ public class Injector {
     public static final String METHOD1 = "getLastKnownLocation";
     public static final String METHOD2 = "getLastLocation";
     public static final String METHOD3 = "onLocationChanged";
-
+    public static final String TAG = "Injector";
     static String mainpackage=null;
     static String mainactivity=null;
     public static int scanAndInject(String folderPath, Context context) throws IOException {
@@ -52,6 +50,10 @@ public class Injector {
             mainactivity = mainpackage+"/"+mainactivity.substring(1);
 
         }
+        else if(!mainactivity.contains("."))
+        {
+            mainactivity = mainpackage+"/"+mainactivity;
+        }
         else
         {
             //System.out.println("absolute");
@@ -60,9 +62,13 @@ public class Injector {
         }
         Log.d(TAG, "scanAndInject: mainactivity="+mainactivity);
         //copy Reporter to main package
-        new Operator().fileCopy(context.getFilesDir().getAbsolutePath()+"/Reporter.smali",folderPath+"/smali/"+mainpackage+"/Reporter.smali");
+        //eventually I realised that mainActivity doesnt have anything to do with main package
+        String activityPackage = mainactivity.substring(0,mainactivity.lastIndexOf("/"));
+        //new Operator().fileCopy(context.getFilesDir().getAbsolutePath()+"/Reporter.smali",folderPath+"/smali/"+mainpackage+"/Reporter.smali");
+        new Operator().fileCopy(context.getFilesDir().getAbsolutePath()+"/Reporter.smali",folderPath+"/smali/"+activityPackage+"/Reporter.smali");
         //obj.findAndReplace("/home/vishal/workspace/Injector/files/Reporter.smali", mainpackage);
-        findAndReplace(folderPath+"/smali/"+mainpackage+"/Reporter.smali",mainpackage);
+        //findAndReplace(folderPath+"/smali/"+mainpackage+"/Reporter.smali",mainpackage);
+        findAndReplace(folderPath+"/smali/"+activityPackage+"/Reporter.smali",activityPackage);
         //scan n modify activity : add reporter.initContext to MainActivity
         //obj.injectMainActivity("/home/vishal/workspace/Injector/files/MainActivity.smali");
         injectMainActivity(folderPath+"/smali/"+mainactivity+".smali");
@@ -80,11 +86,13 @@ public class Injector {
         try {
             String dirArray[] = {""};
             Collection<File> fileCollection =  FileUtils.listFiles(new File(path), FileFilterUtils.suffixFileFilter(".smali"), TrueFileFilter.INSTANCE);
-
+            Log.d(TAG, "injectClasses: files to scan:"+fileCollection.size());
                       for(File file : fileCollection)
                             {
-                                if(file.getAbsolutePath().contains("google")||file.getAbsolutePath().contains("android"))
+                                if(file.getAbsolutePath().contains("google")||file.getAbsolutePath().contains("android")) {
+                                    Log.d(TAG, "injectClasses: skipping file:"+file.getName());
                                     continue;
+                                }
                                 changeFlag = false;
                                 Log.d(TAG, "injectClasses: "+"scanning -- "+file);
                                 //System.out.println("scanning -- "+file);
@@ -96,8 +104,9 @@ public class Injector {
                                     {
                                         String line = lstIt.next();
                                         //index++;
-                                        if(line.contains("getLastKnownLocation") || line.contains("getLastLocation"))
+                                        if((line.contains("getLastKnownLocation") || line.contains("getLastLocation")) && !line.contains("method"))
                                         {
+                                            Log.d(TAG, "injectClasses: "+"---->"+line);
                                             changeFlag = true;
                                             lstIt.previous();
                                             lstIt.add(reportCall);
@@ -105,7 +114,8 @@ public class Injector {
                                             lstIt.next();
                                             //index+=2;
                                         }
-                                        else if (line.contains(".method public onLocationChanged(Landroid/location/Location;)V") )
+                                        //if (line.contains(".method public onLocationChanged(Landroid/location/Location;)V") )
+                                        if (line.contains("method") && line.contains("onLocationChanged"))
                                         {
                                             changeFlag = true;
                                             Log.d(TAG, "injectClasses: "+"---->"+line);
@@ -118,7 +128,8 @@ public class Injector {
                                                 line = lstIt.next();
                                             }
                                             //else
-                                            lstIt.add(reportCall);
+                                            if(lstIt.hasNext())
+                                                lstIt.add(reportCall);
 
                                         }
                                     }
@@ -177,7 +188,7 @@ public class Injector {
             lines.add(index+1, initContextCall);
             //Files.write(path, lines, StandardCharsets.UTF_8);
             FileUtils.writeLines(new File(dirPath),"UTF-8",lines);
-        } catch (IOException e) {
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
