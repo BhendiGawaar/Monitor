@@ -1,10 +1,12 @@
 package com.example.vishal.monitor;
 
+import android.os.Environment;
 import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
 /**
  * Created by vishal on 1/12/16.
@@ -81,6 +83,10 @@ public class Executer
 
             }
             Log.d("output", result);
+            String logfile = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Monitor/log"+System.currentTimeMillis()+".txt";
+            PrintWriter writer = new PrintWriter(logfile);
+            writer.print(result);
+            writer.close();
         }
         catch (Exception e)
         {

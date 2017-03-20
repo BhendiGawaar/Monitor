@@ -135,7 +135,7 @@ public class Operator
 
                 //RunExec.runCmd("sh "+filesDir+"/apktool/apktool.sh d -f /sdcard/download/cme.apk  /sdcard/download/cme_src2");
                 //RunExec.runCmd("sh "+filesDir+"/apktool/apktool2.sh d -f /sdcard/download/cme.apk -o /sdcard/download/cme_src3");
-                Executer.runCmd("sh " + apktoolDir + "/apktool2.sh b -f -a " + apktoolDir + "/openjdk/bin/aaptnew " + outputDir + " -o " + outputApk);
+                Executer.runCmd("sh " + apktoolDir + "/apktool2.sh b -f -a " + apktoolDir + "/openjdk/bin/aapt4.4 " + outputDir + " -o " + outputApk);
                 //Executer.runCmd("sh "+apktoolDir+"/apktool2.sh b -f  "+apkFile+" -o "+outputDir);
 
         return status;
