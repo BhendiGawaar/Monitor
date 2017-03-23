@@ -69,6 +69,7 @@ public class AlertPrefsActivity extends AppCompatActivity {
         //final LinkedList<String> packlist = Util.getInstalledApps(this);//fetches all location using apps
         Monitordb dbHelper = new Monitordb(context);
         final LinkedList<String> packlist = dbHelper.getInjectedApps();
+        dbHelper.close();
         String appArray[] = new String[packlist.size()];
         HashMap<String, Integer> packNamesMap = new HashMap<String, Integer>();
         for(int i=0;i<packlist.size();i++)

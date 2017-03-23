@@ -54,8 +54,9 @@ public class Operator
             Log.d(TAG, "Operate: app src file="+ srcDir+" dest file: "+apkFile+" apkName="+apkName +" outputDir="+outputDir+" outputApk="+compiledApk);
 
             fileCopy(srcDir,apkFile);//copy apk to external storage
-            final Monitordb dbHelper = new Monitordb(context);
+            Monitordb dbHelper = new Monitordb(context);
             LinkedList<String> packlist = dbHelper.getInjectedApps();
+            dbHelper.close();
             if(packlist.contains(packageName))
             {
                 Log.d(TAG, "operate: already injected");
@@ -95,14 +96,15 @@ public class Operator
                         uninstallIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(uninstallIntent);
 
+                        Monitordb dbHelper = new Monitordb(context);
                         //insert name of injected package in db
                         SQLiteDatabase db = dbHelper.getWritableDatabase();
                         //db.delete(INJECTEDAPPS_TABLE_NAME,null,null);
                         ContentValues contentValue = new ContentValues();
                         contentValue.put(dbHelper.COLUMN_PACKAGE_NAME,packageName);
                         db.insert(INJECTEDAPPS_TABLE_NAME, null, contentValue);
-                        dbHelper.selectStar(db);
-                        db.close();
+                        //dbHelper.selectStar(db);
+                        dbHelper.close();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -114,6 +116,7 @@ public class Operator
         catch (Exception e)
         {
             Log.d(TAG, "Exception in operate: ");
+
             e.printStackTrace();
         }
         return status;

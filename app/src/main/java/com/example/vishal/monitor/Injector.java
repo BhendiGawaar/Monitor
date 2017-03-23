@@ -71,18 +71,18 @@ public class Injector {
         findAndReplace(folderPath+"/smali/"+activityPackage+"/Reporter.smali",activityPackage);
         //scan n modify activity : add reporter.initContext to MainActivity
         //obj.injectMainActivity("/home/vishal/workspace/Injector/files/MainActivity.smali");
-        injectMainActivity(folderPath+"/smali/"+mainactivity+".smali");
+        injectMainActivity(folderPath+"/smali/"+mainactivity+".smali",activityPackage);
         //obj.injectClasses("/home/vishal/workspace/Injector/files/");
-        injectClasses(folderPath+"/smali/");
+        injectClasses(folderPath+"/smali/",activityPackage);
         ///home/vishal/code/ap/experiment/Where_Am_I_v2/smali_dup/com/smartmobsolutions/android/
         //obj.injectClasses("/home/vishal/code/ap/experiment/Where_Am_I_v2/smali_dup/com/smartmobsolutions/android/whereami/");
         return 0;
     }
 
-    public static int injectClasses(String path)
+    public static int injectClasses(String path, String activityPackage)
     {
         boolean changeFlag = false;
-        String reportCall = "invoke-static {}, L"+mainpackage+"/Reporter;->report()V";
+        String reportCall = "invoke-static {}, L"+activityPackage+"/Reporter;->report()V";
         try {
             String dirArray[] = {""};
             Collection<File> fileCollection =  FileUtils.listFiles(new File(path), FileFilterUtils.suffixFileFilter(".smali"), TrueFileFilter.INSTANCE);
@@ -152,7 +152,7 @@ public class Injector {
         }
         return 0;
     }
-    public static int injectMainActivity(String dirPath)
+    public static int injectMainActivity(String dirPath, String activityPackage)
     {
 
         List<String> lines;
@@ -184,7 +184,7 @@ public class Injector {
             }
             Log.d(TAG, "injectMainActivity: "+"signature found at: "+index);
 
-            String initContextCall = "invoke-static {p0}, L"+mainpackage+"/Reporter;->initContext(Landroid/app/Activity;)V";
+            String initContextCall = "invoke-static {p0}, L"+activityPackage+"/Reporter;->initContext(Landroid/app/Activity;)V";
             lines.add(index+1, initContextCall);
             //Files.write(path, lines, StandardCharsets.UTF_8);
             FileUtils.writeLines(new File(dirPath),"UTF-8",lines);

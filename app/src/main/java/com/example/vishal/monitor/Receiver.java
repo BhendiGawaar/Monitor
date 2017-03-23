@@ -1,6 +1,7 @@
 package com.example.vishal.monitor;
 
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,7 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.Toast;
 
-import static android.content.ContentValues.TAG;
 import static com.example.vishal.monitor.StaticStorage.lastAdded;
 import static com.example.vishal.monitor.StaticStorage.lastRemoved;
 
@@ -18,7 +18,7 @@ import static com.example.vishal.monitor.StaticStorage.lastRemoved;
 public class Receiver extends BroadcastReceiver {
 
     SharedPreferences alertPrefs;
-
+    public static String TAG = "Monitor";
     @Override
     public void onReceive(Context context, Intent intent)
     {
@@ -30,7 +30,19 @@ public class Receiver extends BroadcastReceiver {
         {
             String packName = intent.getStringExtra("who");
             String appName = AlertPrefsActivity.getAppName(packName,context);
-            Log.d(TAG, "onReceive2: "+intent.getAction());
+            String date = intent.getStringExtra("date");
+            String time = intent.getStringExtra("time");
+            Log.d(TAG, "Action: "+intent.getAction()+packName+" "+date+" "+time);
+
+            Monitordb dbHelper = new Monitordb(context);
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            ContentValues contentValue = new ContentValues();
+            contentValue.put(dbHelper.COLUMN_PACKAGE_NAME,packName);
+            contentValue.put(dbHelper.COLUMN_DATE,date);
+            contentValue.put(dbHelper.COLUMN_TIME,time);
+            long count = db.insert(Monitordb.ACCESSLOG_TABLE_NAME,null,contentValue);
+            Log.d(TAG, "onReceive: insert operation:"+count);
+
             if(alertPrefs.getBoolean("switchGlobal",true) && alertPrefs.getBoolean(packName,true))
                 Toast.makeText(context, "Location accessed by " + appName + " on " + intent.getStringExtra("date") + " at " + intent.getStringExtra("time"), Toast.LENGTH_LONG).show();
         }
@@ -43,7 +55,7 @@ public class Receiver extends BroadcastReceiver {
             }
             else
                 lastAdded = packageName;
-            Log.d(TAG, "onReceive: "+intent.getAction()+" "+packageName);
+            Log.d(TAG, "Action: "+intent.getAction()+" "+packageName);
             Toast.makeText(context,"Added package: "+packageName,Toast.LENGTH_LONG).show();
             Operator operator = new Operator();
 
@@ -63,7 +75,7 @@ public class Receiver extends BroadcastReceiver {
                 db.delete(dbHelper.INJECTEDAPPS_TABLE_NAME, dbHelper.COLUMN_PACKAGE_NAME + "=?", new String[]{packageName});
                 Log.d(TAG, "onReceive: deleted "+packageName + "lastAdded="+lastAdded + "lastRemoved="+lastRemoved);
             }
-
+            dbHelper.close();
         }
     }
 }

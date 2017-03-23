@@ -18,11 +18,22 @@ public class Monitordb extends SQLiteOpenHelper {
     public static final String TAG = "Monitordb";
     public static final String DATABASE_NAME = "Monitor.db";
     public static final String COLUMN_PACKAGE_NAME = "package";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     public static final String INJECTEDAPPS_TABLE_NAME = "injectedapps";
     private static final String ALERTPREFS_TABLE_CREATE =
             "CREATE TABLE " + INJECTEDAPPS_TABLE_NAME + " (" +
                     COLUMN_PACKAGE_NAME + " TEXT PRIMARY KEY);";
+
+    public static final String ACCESSLOG_TABLE_NAME = "access_log";
+    public static final String COLUMN_DATE = "date";
+    public static final String COLUMN_TIME = "time";
+
+    private static final String ACCESSLOG_TABLE_CREATE =
+            "CREATE TABLE " + ACCESSLOG_TABLE_NAME+ " (" +
+                    COLUMN_PACKAGE_NAME + " TEXT," +
+                    COLUMN_DATE +" TEXT," +
+                    COLUMN_TIME +" TEXT" +
+                    " );";
 
     Monitordb(Context context)
     {
@@ -33,12 +44,14 @@ public class Monitordb extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(ALERTPREFS_TABLE_CREATE);
+        db.execSQL(ACCESSLOG_TABLE_CREATE);
 
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
+    {
+        db.execSQL(ACCESSLOG_TABLE_CREATE);
     }
 
     public LinkedList<String> getInjectedApps()

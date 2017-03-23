@@ -3,7 +3,10 @@ package com.example.vishal.monitor;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -11,9 +14,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
+import java.nio.channels.FileChannel;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
@@ -28,6 +35,7 @@ public class MainActivity extends AppCompatActivity
 
     Button btnAlertPrefs;
     Button btnConnect;
+    Button btnExport;
     Context context;
     public static int PrivacyGuard_Installed=100;
     @Override
@@ -42,10 +50,62 @@ public class MainActivity extends AppCompatActivity
 
         btnAlertPrefs = (Button) findViewById(R.id.btnAlertPrefs);
         btnConnect = (Button) findViewById(R.id.btnConnect);
+        btnExport = (Button) findViewById(R.id.btnExport);
         //initialize locationAcquisitionHelper here, its constructor does the rest of the work
         //locationAcquisitionHelper = new LocationAcquisitionHelper(getApplicationContext());
         //locationAcquisitionHelper.mGoogleApiClient
 
+        btnExport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Monitordb dbHelper = new Monitordb(context);
+                SQLiteDatabase db = dbHelper.getReadableDatabase();
+                Cursor c = db.query(dbHelper.ACCESSLOG_TABLE_NAME,new String[]{dbHelper.COLUMN_PACKAGE_NAME, " count("+dbHelper.COLUMN_PACKAGE_NAME+")"},null,null,dbHelper.COLUMN_PACKAGE_NAME,null,null);
+                String logfile = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Monitor/Accesslog.txt";
+                PrintWriter writer = null;
+                try {
+                    writer = new PrintWriter(logfile);
+                    String result="";
+                    if(c.getCount()>0)
+                    {
+                        Log.d(TAG, "export: cursor is not zero "+c.getCount());
+                        //c.moveToFirst();
+                        while(c.moveToNext())
+                        {
+                            result=result + c.getString(0) +" "+c.getString(1)+"\n";
+                        }
+                        writer.print(result);
+                        writer.close();
+                    }
+                    else
+                        Log.d(TAG, "export: cursor is zero");
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    File sd = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Monitor");
+                    File data = Environment.getDataDirectory();
+
+                    if (sd.canWrite()) {
+                        String currentDBPath = "/data/data/" + getPackageName() + "/databases/"+Monitordb.DATABASE_NAME;
+                        String backupDBPath = Monitordb.DATABASE_NAME;
+                        File currentDB = new File(currentDBPath);
+                        File backupDB = new File(sd, backupDBPath);
+
+                        if (currentDB.exists()) {
+                            FileChannel src = new FileInputStream(currentDB).getChannel();
+                            FileChannel dst = new FileOutputStream(backupDB).getChannel();
+                            dst.transferFrom(src, 0, src.size());
+                            src.close();
+                            dst.close();
+                        }
+                    }
+                } catch (Exception e) {
+                    Log.d(TAG, "pullListen: problem in pull db");
+                }
+            }
+        });
         btnAlertPrefs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
