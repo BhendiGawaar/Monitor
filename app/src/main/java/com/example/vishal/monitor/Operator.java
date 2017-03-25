@@ -110,6 +110,8 @@ public class Operator
                     }
                 }
             };
+            //thread.se
+            
             thread.start();
             //thread.join();
         }

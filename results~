@@ -1,0 +1,74 @@
+			Total Memory		time			cpu
+
+goldenshorestechnologies.brightestflashlight.free					89624778143		25
+com.smartmobsolutions.android.whereami						316908112066
+figuig.live_location			401920715315
+tw.nicky.LogCallLocation		31154518842
+com.live.tracker				60423352269
+com.foxbyte.destinationalarm	116030484227
+com.pjd.proximityalert			39217349047
+mg.locations.track5	594895153002
+com.gpsserver.gpstracker	75041604451
+org.goldenfoundsoft.sensor	32501566758
+com.ventureGPSFree	162119982490
+com.gpscoordinatesandlocation	132739251616
+com.smsquare.nearbybuddy		500358551163
+
+
+com.daeha.android.hud			111328507198 --injection succeded but no alerts generated
+org.bruxo.gpsconnected			130234503180 --Alert was never triggered
+	
+olx --failed					1270264628214
+imdb --failed
+mcdonald --failed 				create method not found
+facebook lite					intervention(different register range)
+com.dfusiontech.locationdetector intervention(different register range)
+com.trigma.lbs					intervention(different register range)  --Invalid register: v22. Must be between v0 and v15, inclusive.
+facebook lite --failed			Signature Verification
+com.onexsoftech.callerlocation 452059339254		--failed bad 9patch images in the source apk that only manifest itself in errors because of the newer more restrictive aapt binary.
+
+com.mobilekidunia.mylocation	537054927399 brut.common.BrutException: could not exec command: [/data/data/com.example.vishal.monitor/files/apktool/openjdk/bin/aaptnew, p, --min-sdk-version, 16, --target-sdk-version, 23, --version-code, 22, --version-name, 1.6.1, -F, /data/data/com.example.vishal.monitor/files/APKTOOL1077287460092518378.tmp, -0, arsc, -I, /data/data/com.example.vishal.monitor/files/1.apk, -S, /storage/sdcard0/Monitor/com.mobilekidunia.mylocation/base_src/res, -M, /storage/sdcard0/Monitor/com.mobilekidunia.mylocation/base_src/AndroidManifest.xml]
+								
+
+com.woozilli.gpscoordinates		285415668172		--failed /storage/sdcard0/Monitor/com.woozilli.gpscoordinates/base_src/res/values-v23/styles.xml:7: error: Error retrieving parent for item: No resource found that matches the given name '@android:style/AlertDialog'.
+
+
+com.gizmoquip.smstracker		166839210301  --ERROR: 9-patch image /storage/sdcard0/Monitor/com.gizmoquip.smstracker/base_src/res/drawable-hdpi/copydivider.9.png malformed.
+com.esys.satfinder				275453953905 -- ERROR: 9-patch image /storage/sdcard0/Monitor/com.esys.satfinder/base_src/res/drawable-hdpi/abc_list_divider_mtrl_alpha.9.png malformed.
+
+
+ola
+uber --  W: Config flags size > 38. Exceeding bytes: 0x746E00000000000000000000000000000000.
+                                                                  W: Invalid config flags detected. Dropping resources: string-sr-ERR0
+                                                                  Exception in thread "main" java.lang.ClassCastException: brut.androlib.res.data.value.ResStringValue cannot be cast to brut.androlib.res.data.value.ResAttr
+                                                                      at brut.androlib.res.decoder.ResAttrDecoder.decode(ResAttrDecoder.java:36)
+Facebook --Exception in thread "main" java.lang.ClassCastException: brut.androlib.res.data.value.ResStringValue cannot be cast to brut.androlib.res.data.value.ResAttr                                                                      
+                                                                      
+com.makemytrip  --decompilation failed
+com.papaya.gps.location.distance.finder	335899079351 --ERROR: 9-patch image /storage/sdcard0/Monitor/com.papaya.gps.location.distance.finder/base_src/res/drawable-mdpi/abc_list_divider_mtrl_alpha.9.png malformed.
+                                                                          Must have one-pixel frame that is either transparent or white.
+                                                                   ERROR: 9-patch image /storage/sdcard0/Monitor/com.papaya.gps.location.distance.finder/base_src/res/drawable-hdpi/abc_list_divider_mtrl_alpha.9.png malformed.
+                                                                          Must have one-pixel frame that is either transparent or white.
+                                                                   ERROR: Failure processing PNG image /storage/sdcard0/Monitor/com.papaya.gps.location.distance.finder/base_src/res/drawable-mdpi/abc_list_divider_mtrl_alpha.9.png
+                                                                   ERROR: Failure processing PNG image /storage/sdcard0/Monitor/com.papaya.gps.location.distance.finder/base_src/res/drawable-hdpi/abc_list_divider_mtrl_alpha.9.png
+                                                                   ERROR: 9-patch image /storage/sdcard0/Monitor/com.papaya.gps.location.distance.finder/base_src/res/drawable-xhdpi/abc_list_divider_mtrl_alpha.9.png malformed.
+                                                                          Must have one-pixel frame that is either transparent or white.
+                                                                   ERROR: Failure processing PNG image /storage/sdcard0/Monitor/com.papaya.gps.location.distance.finder/base_src/res/drawable-xhdpi/abc_list_divider_mtrl_alpha.9.png
+                                                                   ERROR: 9-patch image /storage/sdcard0/Monitor/com.papaya.gps.location.distance.finder/base_src/res/drawable-xxhdpi/abc_list_divider_mtrl_alpha.9.png malformed.
+                                                                          Must have one-pixel frame that is either transparent or white.
+                                                                   ERROR: Failure processing PNG image /storage/sdcard0/Monitor/com.papaya.gps.location.distance.finder/base_src/res/drawable-xxhdpi/abc_list_divider_mtrl_alpha.9.png
+                                                                   /storage/sdcard0/Monitor/com.papaya.gps.location.distance.finder/base_src/res/values/public.xml:407: error: Public symbol drawable/abc_ab_share_pack_mtrl_alpha declared here is not defined.
+                                                                   /storage/sdcard0/Monitor/com.papaya.gps.location.distance.finder/base_src/res/values/public.xml:404: error: Public symbol drawable/abc_action_bar_item_background_material declared here is not defined.
+                                                                   /storage/sdcard0/Monitor/com.papaya.gps.location.distance.finder/base_src/res/values/public.xml:350: error: Public symbol drawable/abc_btn_borderless_material declared here is not defined.
+                                                                   /storage/sdcard0/Monitor/com.papaya.gps.location.distance.finder/base_src/res/values/public.xml:351: error: Public symbol drawable/abc_btn_check_material declared here is not defined.
+                                                                   /storage/sdcard0/Monitor/com.papaya.gps.location.distance.finder/base_src/res/values/public.xml:408: error: Public symbol drawable/abc_btn_check_to_on_mtrl_000 declared here is not defined.
+                                                                   /storage/sdcard0/Monitor/com.papaya.gps.location.distance.finder/base_src/res/values/public.xml:409: error: Public symbol drawable/abc_btn_check_to_on_mtrl_015 declared here is not defined.
+                                                                   /storage/sdcard0/Monitor/com.papaya.gps.location.distance.finder/base_src/res/values/public.xml:352: error: Public symbol drawable/abc_btn_colored_material declared here is not defined.
+                                                                   /storage/sdcard0/Monitor/com.papaya.gps.location.distance.finder/base_src/res/values/public.xml:353: error: Public symbol drawable/abc_btn_default_mtrl_shape declared here is not defined.
+                                                                   /storage/sdcard0/Monitor/com.papaya.gps.location.distance.finder/base_src/res/values/public.xml:354: error: Public symbol drawable/abc_btn_radio_material declared here is not defined.
+                                                                   /storage/sdcard0/Monitor/com.papaya.gps.location.distance.finder/base_src/res/values/public.xml:410: error: Public symbol drawable/abc_btn_radio_to_on_mtrl_000 declared here is not defined.
+                                                                   /storage/sdcard0/Monitor/com.papaya.gps.location.distance.finder/base_src/res/values/public.xml:411: error: Public symbol drawable/abc_btn_radio_to_on_mtrl_015 declared here is not defined.
+                                                                   /storage/sdcard0/Monitor/com.papaya.gps.location.distance.finder/base_src/res/values/public.xml:412: error: Public symbol drawable/abc_btn_switch_to_on_mtrl_00001 declared here is not defined.
+                                                                   /storage/sdcard0/Monitor/com.papaya.gps.location.distance.finder/base_src/res/values/public.xml:413: error
+                                                                   
+ iBotPeaches commented on 25 Mar 2016: 9patch bugs are either bugs in the decoder or simply bad 9patch images in the source apk that only manifest itself in errors because of the newer more restrictive aapt binary.

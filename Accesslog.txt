@@ -1,0 +1,12 @@
+com.example.vishal.deviceapp 6
+com.facebook.lite 9
+com.foxbyte.destinationalarm 2
+com.gpscoordinatesandlocation 6
+com.gpsserver.gpstracker 798
+com.live.tracker 24
+com.smartmobsolutions.android.whereami 8
+com.smsquare.nearbybuddy 1
+com.ventureGPSFree 18
+figuig.live_location 7
+goldenshorestechnologies.brightestflashlight.free 5
+mg.locations.track5 16

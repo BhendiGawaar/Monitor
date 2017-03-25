@@ -1,0 +1,32 @@
+App & Repackaging & Notification triggered\\ 
+When run & Remarks\\ 
+goldenshorestechnologies.brightestflashlight.free & Ok & Yes\\ 
+com.smartmobsolutions.android.whereami & Ok & Yes\\ 
+figuig.live_location & Ok & Yes\\ 
+tw.nicky.LogCallLocation & Ok & Yes\\ 
+com.live.tracker & Ok & Yes\\ 
+com.foxbyte.destinationalarm & Ok & Yes\\ 
+com.pjd.proximityalert & Ok & Yes\\ 
+mg.locations.track5 & Ok & Yes\\ 
+com.gpsserver.gpstracker & Ok & Yes\\ 
+org.goldenfoundsoft.sensor & Ok & Yes\\ 
+com.ventureGPSFree & Ok & Yes\\ 
+com.gpscoordinatesandlocation & Ok & Yes\\ 
+com.smsquare.nearbybuddy & Ok & Yes\\ 
+com.daeha.android.hud & Ok & No\\ 
+org.bruxo.gpsconnected & Ok & No\\ 
+facebook lite & Ok & Yes & Invalid register used\\ 
+com.dfusiontech.locationdetector & Ok & Yes & Invalid register used\\ 
+com.trigma.lbs & Ok & Yes & Invalid register used\\ 
+com.mcdeliveryonline.app & Failed  & Entry method not found\\ 
+Com.olx.southasia & Failed  & Error decoding resources\\ 
+com.onexsoftech.callerlocation & Failed  & Error decoding resources\\ 
+com.papaya.gps.location.distance.finder & Failed  & Error decoding resources\\ 
+com.woozilli.gpscoordinates & Failed  & Error decoding resources\\ 
+com.esys.satfinder & Failed  & Error decoding resources\\ 
+com.gizmoquip.smstracker & Failed  & Error decoding resources\\ 
+com.olacabs.customer & Failed  & Error decoding resources\\ 
+com.ubercab & Failed  & Invalid config flags detected while decoding\\ 
+com.whatsapp & Failed  & Invalid config flags detected while decoding\\ 
+com.makemytrip & Failed  & Invalid config flags detected while decoding\\ 
+com.imdb.mobile & Failed  & Invalid config flags detected while decoding \\
