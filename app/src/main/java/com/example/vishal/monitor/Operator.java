@@ -53,7 +53,6 @@ public class Operator
             //File appDir = context.getExternalFilesDir(null);
             Log.d(TAG, "Operate: app src file="+ srcDir+" dest file: "+apkFile+" apkName="+apkName +" outputDir="+outputDir+" outputApk="+compiledApk);
 
-            fileCopy(srcDir,apkFile);//copy apk to external storage
             Monitordb dbHelper = new Monitordb(context);
             LinkedList<String> packlist = dbHelper.getInjectedApps();
             dbHelper.close();
@@ -62,6 +61,9 @@ public class Operator
                 Log.d(TAG, "operate: already injected");
                 return "already injected";
             }
+
+            fileCopy(srcDir,apkFile);//copy apk to external storage
+
             Thread thread = new Thread() {
                 public void run() {
                     try {

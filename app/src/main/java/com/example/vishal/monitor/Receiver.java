@@ -77,5 +77,11 @@ public class Receiver extends BroadcastReceiver {
             }
             dbHelper.close();
         }
-    }
+    } ext storage
+            if (!destDir.exists())
+                destDir.mkdirs();
+
+            String path[] = srcDir.split("/");
+            String apkName = path[path.length-1];
+
 }

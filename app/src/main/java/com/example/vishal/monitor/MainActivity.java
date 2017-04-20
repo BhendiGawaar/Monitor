@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity
     Button btnAlertPrefs;
     Button btnConnect;
     Button btnExport;
+    Button btnLpdoc;
     Context context;
     public static int PrivacyGuard_Installed=100;
     @Override
@@ -51,9 +52,18 @@ public class MainActivity extends AppCompatActivity
         btnAlertPrefs = (Button) findViewById(R.id.btnAlertPrefs);
         btnConnect = (Button) findViewById(R.id.btnConnect);
         btnExport = (Button) findViewById(R.id.btnExport);
+        btnLpdoc =  (Button) findViewById(R.id.btnLpdoc);
         //initialize locationAcquisitionHelper here, its constructor does the rest of the work
         //locationAcquisitionHelper = new LocationAcquisitionHelper(getApplicationContext());
         //locationAcquisitionHelper.mGoogleApiClient
+
+        btnLpdoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startLpdoc();
+            }
+        });
 
         btnExport.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,6 +159,15 @@ public class MainActivity extends AppCompatActivity
             startActivity(launchIntent);//null pointer check in case package name was not found
         }
     }
+
+    public void startLpdoc()
+    {
+        Intent launchIntent = getPackageManager().getLaunchIntentForPackage("edu.umich.eecs.rtcl.lp_doctor");
+        if (launchIntent != null) {
+            startActivity(launchIntent);//null pointer check in case package name was not found
+        }
+    }
+
     public boolean isAppInstalled(String packagename)
     {
         PackageManager pm = context.getPackageManager();

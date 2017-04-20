@@ -55,8 +55,17 @@
         android:text="Export Log"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnAlertPrefs"
+        android:id="@+id/btnExport"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="58dp"
-        android:id="@+id/btnExport" />
+        android:layout_marginBottom="15dp" />
+
+    <Button
+        android:text="LP - Doctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnExport"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="32dp"
+        android:id="@+id/btnLpdoc" />
 </RelativeLayout>

@@ -38,6 +38,7 @@ public class Injector {
     public static final String TAG = "Injector";
     static String mainpackage=null;
     static String mainactivity=null;
+
     public static int scanAndInject(String folderPath, Context context) throws IOException {
         // TODO Auto-generated method stub
         //folderPath = "/home/vishal/code/ap/experiment/fb_lite_java";
@@ -59,6 +60,12 @@ public class Injector {
             //System.out.println("absolute");
 
             mainactivity = mainactivity.replace('.', '/');
+        }
+
+
+        if(mainactivity.contains("."))
+        {
+           mainactivity = mainactivity.replace('.','/');
         }
         Log.d(TAG, "scanAndInject: mainactivity="+mainactivity);
         //copy Reporter to main package
@@ -89,8 +96,8 @@ public class Injector {
             Log.d(TAG, "injectClasses: files to scan:"+fileCollection.size());
                       for(File file : fileCollection)
                             {
-                                if(file.getAbsolutePath().contains("google")||file.getAbsolutePath().contains("android")) {
-                                    Log.d(TAG, "injectClasses: skipping file:"+file.getName());
+                                if(file.getAbsolutePath().contains("google")||(file.getAbsolutePath().contains("android") && file.getAbsolutePath().contains("support"))) {
+                                    Log.d(TAG, "injectClasses: skipping file:"+file.getAbsolutePath());
                                     continue;
                                 }
                                 changeFlag = false;
@@ -104,7 +111,7 @@ public class Injector {
                                     {
                                         String line = lstIt.next();
                                         //index++;
-                                        if((line.contains("getLastKnownLocation") || line.contains("getLastLocation")) && !line.contains("method"))
+                                        if((line.contains("getLastKnownLocation") || line.contains("getLastLocation")) && !line.contains("method") && line.contains("LocationManager"))
                                         {
                                             Log.d(TAG, "injectClasses: "+"---->"+line);
                                             changeFlag = true;
@@ -170,7 +177,7 @@ public class Injector {
                     //System.out.println("signature1 found at: "+index);
                     index++;
                     strLine=(String)iterator.next();
-                    while( !strLine.contains("invoke-super") && !strLine.contains("onCreate"))//!strLine.contains("invoke-super") &&
+                    while( !strLine.contains("invoke-super") || !strLine.contains("onCreate"))//!strLine.contains("invoke-super") &&
                     {
                         //System.out.println("in");
                         index++;
@@ -211,6 +218,8 @@ public class Injector {
         }
         return 0;
     }
+    static boolean action=false;
+    static boolean category=false;
 
     public static int getMainActivity(String destFolder)
     {
@@ -230,65 +239,13 @@ public class Injector {
             Log.d(TAG, "getMainActivity: "+"Package :" + Injector.mainpackage);
             //System.out.println("Package :" + Injector.mainpackage);
             NodeList nList = doc.getElementsByTagName("activity");
-            boolean action=false;
-            boolean category=false;
 
-            for (int temp = 0; temp < nList.getLength(); temp++) {//Loop through all the activities
-                Node nNode = nList.item(temp);
-                if (nNode.getNodeType() == Node.ELEMENT_NODE)
-                {
-                    Element eElement = (Element) nNode;
-                    //System.out.println(eElement.getAttribute("android:name"));
-                    NodeList intentList = eElement.getElementsByTagName("intent-filter");
-
-                    for(int i=0;i<intentList.getLength();i++)//Loop through all the intent-filter
-                    {
-                        action=false;
-                        category=false;
-                        Node iNode = intentList.item(i);
-                        if (iNode.getNodeType() == Node.ELEMENT_NODE) {
-                            NodeList acList = iNode.getChildNodes();
-                            for(int j=0; j<acList.getLength();j++) //Loop through all the nodes of intent-filter
-                            {
-                                Node acnNode = acList.item(j);
-                                if(acnNode.getNodeType() == Node.ELEMENT_NODE)
-                                {
-                                    Element acNode = (Element)acnNode;
-                                    //System.out.println("	intent-node="+acNode.getAttribute("android:name"));
-
-                                    if(acNode.getNodeName().equalsIgnoreCase("action") && acNode.getAttribute("android:name").equalsIgnoreCase("android.intent.action.MAIN"))
-                                    {
-                                        action = true;
-                                    }
-
-                                    if(acNode.getNodeName().equalsIgnoreCase("category") && acNode.getAttribute("android:name").equalsIgnoreCase("android.intent.category.LAUNCHER"))
-                                    {
-                                        category = true;
-                                    }
-                                }
-                                //System.out.println("action="+action+" category="+category);
-                                if(action && category)
-                                {
-                                    //System.out.println("action & category found -->");
-                                    break;
-                                }
-                            }
-                        }
-                        if(action && category)
-                        {
-                            //System.out.println("intent found -->"+iNode.getNodeName());
-                            break;
-                        }
-
-                    }
-                    if(action && category)
-                    {
-                        //System.out.println("activity found -->"+eElement.getAttribute("android:name"));
-                        Injector.mainactivity = eElement.getAttribute("android:name");
-                        break;
-                    }
-                }
+            if (!processNodeList(nList,"activity"))
+            {
+                nList = doc.getElementsByTagName("activity-alias");
+                processNodeList(nList,"activity-alias");
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -297,4 +254,73 @@ public class Injector {
     }
 
 
+    public static boolean processNodeList(NodeList nList, String type)
+    {
+
+        for (int temp = 0; temp < nList.getLength(); temp++) {//Loop through all the activities
+            Node nNode = nList.item(temp);
+            if (nNode.getNodeType() == Node.ELEMENT_NODE)
+            {
+                Element eElement = (Element) nNode;
+                //System.out.println(eElement.getAttribute("android:name"));
+                NodeList intentList = eElement.getElementsByTagName("intent-filter");
+
+                for(int i=0;i<intentList.getLength();i++)//Loop through all the intent-filter
+                {
+                    action=false;
+                    category=false;
+                    Node iNode = intentList.item(i);
+                    if (iNode.getNodeType() == Node.ELEMENT_NODE) {
+                        NodeList acList = iNode.getChildNodes();
+                        for(int j=0; j<acList.getLength();j++) //Loop through all the nodes of intent-filter
+                        {
+                            Node acnNode = acList.item(j);
+                            if(acnNode.getNodeType() == Node.ELEMENT_NODE)
+                            {
+                                Element acNode = (Element)acnNode;
+                                //System.out.println("	intent-node="+acNode.getAttribute("android:name"));
+
+                                if(acNode.getNodeName().equalsIgnoreCase("action") && acNode.getAttribute("android:name").equalsIgnoreCase("android.intent.action.MAIN"))
+                                {
+                                    action = true;
+                                }
+
+                                if(acNode.getNodeName().equalsIgnoreCase("category") && acNode.getAttribute("android:name").equalsIgnoreCase("android.intent.category.LAUNCHER"))
+                                {
+                                    category = true;
+                                }
+                            }
+                            //System.out.println("action="+action+" category="+category);
+                            if(action && category)
+                            {
+                                //System.out.println("action & category found -->");
+                                break;
+                            }
+                        }
+                    }
+                    if(action && category)
+                    {
+                        //System.out.println("intent found -->"+iNode.getNodeName());
+                        break;
+                    }
+
+                }
+                if(action && category)
+                {
+                    if(type.equalsIgnoreCase("activity")) {
+                        //System.out.println("activity found -->"+eElement.getAttribute("android:name"));
+                        Injector.mainactivity = eElement.getAttribute("android:name");
+                        Log.d(TAG, "getMainActivity: " + "Activity :" + Injector.mainactivity);
+                    }else {
+                        Injector.mainactivity = eElement.getAttribute("android:targetActivity");
+                        Log.d(TAG, "getMainActivity: " + "Activity-alias :" + Injector.mainactivity);
+                    }
+                    return true;
+                    //break;
+                }
+            }
+        }
+        return false;
+
+    }
 }
