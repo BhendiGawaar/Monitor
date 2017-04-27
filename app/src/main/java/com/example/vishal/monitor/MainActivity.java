@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -137,16 +138,6 @@ public class MainActivity extends AppCompatActivity
         btnConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-/*                if(!isAppInstalled("com.PrivacyGuard"))
-                {
-                    Intent installIntent = new Intent(Intent.ACTION_VIEW);
-                    installIntent.setDataAndType(Uri.fromFile(new File(getFilesDir().getAbsolutePath()+"/privacyguard.apk")), "application/vnd.android.package-archive");
-                    installIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //installIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivityForResult(installIntent,PrivacyGuard_Installed);
-
-                }
-                else*/
                     startPrivacyGuard();
             }
         });
@@ -237,7 +228,19 @@ public class MainActivity extends AppCompatActivity
         //RunExec.runCmd("sh "+filesDir+"/apktool/apktool2.sh b -f -a /data/data/com.example.vishal.monitor/files/apktool/openjdk/bin/aapt4.4 /sdcard/download/cme_src -o /sdcard/download/cme_src3.apk");
         //RunExec.runCmd("sh /data/data/com.example.vishal.monitor/files/apktool/apktool2.sh b -f -a /data/data/com.example.vishal.monitor/files/apktool/openjdk/bin/aapt4.4 /storage/sdcard0/Monitor/com.SanchitaCreations.marathiindianlaw/base_src -o /storage/sdcard0/Monitor/com.SanchitaCreations.marathiindianlaw/base_src.apk");
         //
+        if(!isAppInstalled("com.PrivacyGuard"))
+        {
+            ///data/data/com.example.vishal.monitor/files/privacyguard.apk
+            String pgApkPath = getFilesDir().getAbsolutePath()+"/privacyguard.apk";
+            privateCopy("privacyguard.apk", R.raw.privacyguard);
+            RunExec.runCmd("busybox chmod -R 755 "+pgApkPath);
+            Intent installIntent = new Intent(Intent.ACTION_VIEW);
+            installIntent.setDataAndType(Uri.fromFile(new File(pgApkPath)), "application/vnd.android.package-archive");
+            installIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //installIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivityForResult(installIntent,PrivacyGuard_Installed);
 
+        }
 
         return status;
     }
